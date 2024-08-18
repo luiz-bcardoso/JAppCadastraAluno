@@ -48,4 +48,10 @@ public class AlunoDAO {
         }
         return alunos;
     }
+
+    //AULA 3 - Método para excluir
+    public void excluir(Aluno a){
+        banco.delete("aluno", "id = ?",new String[]{a.getId().toString()}); // no lugar do ? vai colocar o id do aluno
+    }
+
 }
