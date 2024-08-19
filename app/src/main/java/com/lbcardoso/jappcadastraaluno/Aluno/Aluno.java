@@ -1,5 +1,7 @@
 package com.lbcardoso.jappcadastraaluno.Aluno;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class Aluno implements Serializable {
@@ -8,6 +10,7 @@ public class Aluno implements Serializable {
     private String nome;
     private String cpf;
     private String telefone;
+    private byte[] foto;
 
     public Integer getId() {
         return id;
@@ -39,6 +42,14 @@ public class Aluno implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
     @Override

@@ -1,9 +1,13 @@
 package com.lbcardoso.jappcadastraaluno;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,7 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.lbcardoso.jappcadastraaluno.Aluno.Aluno;
 import com.lbcardoso.jappcadastraaluno.Aluno.AlunoDAO;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
+
 
     //Define o nome dos campos e a DAO
     private EditText nome;
@@ -24,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private AlunoDAO dao;
 
     private Aluno aluno = null;
+
+    //Elementos utilizados na foto do aluno
+    private ImageView iV_fotoAluno;
+    private Bitmap foto;
+
+    //Códigos usados na permissao da camera e armazenamento
+    private static final int CAMERA_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         nome = findViewById(R.id.editText_Nome);
         cpf = findViewById(R.id.editText_Cpf);
         telefone = findViewById(R.id.editText_Telefone);
+        iV_fotoAluno = findViewById(R.id.imageView_fotoAluno);
+
         dao = new AlunoDAO(this);
 
         //(Editar) PEGAR OS DADOS QUE VEM NO INTENT DO ATUALIZAR
@@ -45,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             nome.setText(aluno.getNome().toString());
             cpf.setText(aluno.getCpf());
             telefone.setText(aluno.getTelefone());
+            iV_fotoAluno.setImageBitmap(byteArrayToBitmap(aluno.getFoto()));
         }
 
         // Auto generated...
@@ -66,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             a.setNome(nome.getText().toString());
             a.setCpf(cpf.getText().toString());
             a.setTelefone(telefone.getText().toString());
+            a.setFoto(bitmapToByteArray(foto));
 
             //Cadastra o aluno e informa ao usuário
             long id = dao.inserir(a);
@@ -77,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             aluno.setNome(nome.getText().toString());
             aluno.setCpf(cpf.getText().toString());
             aluno.setTelefone(telefone.getText().toString());
+            aluno.setFoto(bitmapToByteArray(foto));
 
             dao.atualizar(aluno); //inserir o aluno
             Toast.makeText(this,"Aluno Atualizado!! com id: ", Toast.LENGTH_SHORT).show();
@@ -88,4 +108,38 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ListarAlunoActivity.class);
         startActivity(intent);
     }
+
+    // Método para abrir camera e capturar foto do aluno
+    public void tirarFoto(View view) {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+    }
+
+    //Método que captura a imagem retornada pela camera
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK){
+            //Gera o BITMAP da foto do aluno e carrega no ImageView do cadastro.
+            foto = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+            iV_fotoAluno.setImageBitmap(foto);
+            Toast.makeText(this,"Foto cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"Falha ao abrir a camera, revise as permissões...", Toast.LENGTH_SHORT).show();
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    // Método que converte BITMAP para BYTE ARRAY
+    private byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        return outputStream.toByteArray();
+    }
+
+    // Método que converte BYTE ARRAY para BITMAP
+    private Bitmap byteArrayToBitmap(byte[] byteArray) {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+
+
 }
