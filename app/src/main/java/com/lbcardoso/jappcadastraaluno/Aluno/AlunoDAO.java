@@ -54,4 +54,12 @@ public class AlunoDAO {
         banco.delete("aluno", "id = ?",new String[]{a.getId().toString()}); // no lugar do ? vai colocar o id do aluno
     }
 
+    //AULA 3 - Método para atualizar aluno
+    public void atualizar(Aluno aluno) {
+        ContentValues values = new ContentValues(); //valores que irei inserir
+        values.put("nome", aluno.getNome());
+        values.put("cpf", aluno.getCpf());
+        values.put("telefone", aluno.getTelefone());
+        banco.update("aluno", values, "id = ?", new String[]{aluno.getId().toString()});
+    }
 }

@@ -108,5 +108,20 @@ public class ListarAlunoActivity extends AppCompatActivity {
         dialog.show(); //manda mostrar a janela
     }
 
+    //MÉTODO ATUALIZAR
+    public void atualizar(MenuItem item){
+        //mesma lógica do excluir porque o botão de menu é o mesmo
+        //pegar qual a posicao do item da lista que eu selecionei para atualizar
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final Aluno alunoAtualizar = alunosFiltrados.get(menuInfo.position);
+
+        //Ao selecionar atualizar, abrir a janela de cadastro e enviar esse aluno para lá
+        Intent it = new Intent(this, MainActivity.class); //Nosso cadastrar se chama 'MainActivity’
+
+        //será preenchido com os dados do aluno que quer atualizar, podemos alterar e salvar
+        it.putExtra("aluno",alunoAtualizar);
+        startActivity(it);
+    }
+
 
 }
