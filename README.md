@@ -5,4 +5,4 @@ Aplicação Android para gerenciar o cadastro, listagem, edição e deleção de
 
 ## Tutorials used in this project:
 How to Build a Camera App in Android Studio | Simple Camera App (2022), CodingTutorials.
-* https://www.youtube.com/watch?v=59taMJThsFU&t=387s
+* https://www.youtube.com/watch?v=59taMJThsFU
