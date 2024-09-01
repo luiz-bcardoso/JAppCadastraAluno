@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Conexao extends SQLiteOpenHelper {
 
-    private static final String name = "bancoAlunoV4.db";
+    private static final String name = "bancoAlunoV6.db";
     private static final int version = 1;
 
     public Conexao(Context context){
@@ -15,8 +15,15 @@ public class Conexao extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
+        //Cria a tabela Aluno
         db.execSQL("create table aluno(id integer primary key autoincrement," +
                 "nome varchar(120), cpf varchar(14), telefone varchar(12), foto BLOB)");
+
+        //Cria a tabela Pagamento
+        db.execSQL("CREATE TABLE pagamento(id integer primary key autoincrement NOT NULL, " +
+                "alunoId integer NOT NULL, valor double, data date," +
+                "CONSTRAINT FK_AlunoPagamento FOREIGN KEY (alunoId) REFERENCES Aluno(id))");
+                // Restrição de chave estangeira para Aluno(id)
     }
 
     @Override
