@@ -3,7 +3,10 @@ package com.lbcardoso.jappcadastraaluno;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +24,7 @@ public class PagamentoActivity extends AppCompatActivity {
     private EditText valor;
     private EditText data;
     private EditText alunoId;
+
     private PagamentoDAO dao;
 
     private Pagamento pagamento = null;

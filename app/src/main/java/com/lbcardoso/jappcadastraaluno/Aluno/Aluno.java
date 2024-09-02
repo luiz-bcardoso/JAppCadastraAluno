@@ -11,6 +11,8 @@ public class Aluno implements Serializable {
     private String cpf;
     private String telefone;
     private byte[] foto;
+    private String grauEscolar;
+    private Integer isActive;
 
     public Integer getId() {
         return id;
@@ -52,8 +54,24 @@ public class Aluno implements Serializable {
         this.foto = foto;
     }
 
+    public String getGrauEscolar() {
+        return grauEscolar;
+    }
+
+    public void setGrauEscolar(String grauEscolar) {
+        this.grauEscolar = grauEscolar;
+    }
+
+    public Integer getActive() {
+        return isActive;
+    }
+
+    public void setActive(Integer active) {
+        isActive = active;
+    }
+
     @Override
     public String toString() {
-        return nome+", "+cpf+", "+telefone;
+        return nome+", "+cpf+", "+telefone+", "+grauEscolar+", "+isActive;
     }
 }

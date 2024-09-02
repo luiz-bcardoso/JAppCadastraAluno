@@ -6,8 +6,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText telefone;
     private AlunoDAO dao;
 
+    private CheckBox isActive;
+    private RadioGroup grauEscolar;
+    private RadioButton grauEscolhido;
+
     private Aluno aluno = null;
 
     //Elementos utilizados na foto do aluno
@@ -52,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         cpf = findViewById(R.id.editText_Cpf);
         telefone = findViewById(R.id.editText_Telefone);
         iV_fotoAluno = findViewById(R.id.imageView_fotoAluno);
+        isActive = findViewById(R.id.chkBox_estaAtivo);
+        grauEscolar = findViewById(R.id.radioGroup);
 
         dao = new AlunoDAO(this);
 
@@ -63,6 +72,19 @@ public class MainActivity extends AppCompatActivity {
             cpf.setText(aluno.getCpf());
             telefone.setText(aluno.getTelefone());
             iV_fotoAluno.setImageBitmap(byteArrayToBitmap(aluno.getFoto()));
+            //TODO: Restore selected radioButton id somehow
+            for(int i = 0; i<grauEscolar.getChildCount(); i++){
+                View view = grauEscolar.getChildAt(i);
+                if(view instanceof RadioButton){
+                    RadioButton selecaoValida = (RadioButton) view;
+                    if(selecaoValida.getText().equals(aluno.getGrauEscolar())){
+                        selecaoValida.setChecked(true);
+                        break;
+                    }
+                }
+            }
+            isActive.setChecked(aluno.getActive() == 1);
+
         }
 
         // Auto generated...
@@ -79,12 +101,19 @@ public class MainActivity extends AppCompatActivity {
         if(aluno == null){
             //Cria um novo objeto de aluno
             Aluno a = new Aluno();
+            grauEscolhido = findViewById(grauEscolar.getCheckedRadioButtonId());
 
             //Atribui os dados do formulário preenchido
             a.setNome(nome.getText().toString());
             a.setCpf(cpf.getText().toString());
             a.setTelefone(telefone.getText().toString());
             a.setFoto(bitmapToByteArray(foto));
+            a.setGrauEscolar(grauEscolhido.getText().toString());
+            if(isActive.isChecked()){
+                a.setActive(1);
+            }else{
+                a.setActive(0);
+            }
 
             //Cadastra o aluno e informa ao usuário
             long id = dao.inserir(a);
@@ -93,10 +122,17 @@ public class MainActivity extends AppCompatActivity {
         // Aluno sendo atualizado
         }else{
             //RECEBENDO DADOS DO ATUALIZAR NA VARIAVEL 'aluno'
+            grauEscolhido = findViewById(grauEscolar.getCheckedRadioButtonId());
             aluno.setNome(nome.getText().toString());
             aluno.setCpf(cpf.getText().toString());
             aluno.setTelefone(telefone.getText().toString());
             aluno.setFoto(bitmapToByteArray(foto));
+            aluno.setGrauEscolar(grauEscolhido.getText().toString());
+            if(isActive.isChecked()){
+                aluno.setActive(1);
+            }else{
+                aluno.setActive(0);
+            }
 
             dao.atualizar(aluno); //inserir o aluno
             Toast.makeText(this,"Aluno Atualizado!! com id: ", Toast.LENGTH_SHORT).show();
