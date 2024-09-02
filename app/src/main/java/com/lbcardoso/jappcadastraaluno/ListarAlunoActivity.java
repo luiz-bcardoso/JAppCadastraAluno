@@ -123,5 +123,10 @@ public class ListarAlunoActivity extends AppCompatActivity {
         startActivity(it);
     }
 
+    public void pagamento(MenuItem item){
+        Intent intent = new Intent(this, ListarPagamentoActivity.class);
+        startActivity(intent);
+    }
+
 
 }

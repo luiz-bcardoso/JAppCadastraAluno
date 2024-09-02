@@ -8,4 +8,7 @@
     <item
         android:onClick="excluir"
         android:title="Excluir" />
+    <item
+        android:onClick="pagamento"
+        android:title="Listar Pagamentos"/>
 </menu>

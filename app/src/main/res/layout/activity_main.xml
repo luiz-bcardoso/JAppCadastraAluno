@@ -70,7 +70,7 @@
         android:inputType="phone"
         android:maxLength="12"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/radioButton"
+        app:layout_constraintBottom_toTopOf="@+id/rBtn_graduacao"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,32 +81,17 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="salvar"
         android:text="Salvar"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.687"
+        app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Telefone"
-        app:layout_constraintVertical_bias="0.286"
-        tools:visibility="visible" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="194dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
-        android:onClick="listarAlunos"
-        android:text="Listar Alunos"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.318"
         tools:visibility="visible" />
 
     <TextView
@@ -139,8 +124,8 @@
         android:id="@+id/btn_capturarImagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="tirarFoto"
-        android:text="Tirar Foto"
+        android:onClick="listarAlunos"
+        android:text="Listar Alunos"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,11 +135,27 @@
         app:layout_constraintVertical_bias="1.0"
         tools:visibility="visible" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="194dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="tirarFoto"
+        android:text="Tirar Foto"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:visibility="visible" />
+
     <CheckBox
         android:id="@+id/chkBox_estaAtivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="-60dp"
         android:layout_marginBottom="16dp"
         android:text="Está Ativo?"
@@ -163,9 +164,11 @@
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         tools:visibility="visible" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
@@ -204,6 +207,14 @@
             tools:visibility="visible" />
 
     </RadioGroup>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="682dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

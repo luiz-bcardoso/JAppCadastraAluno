@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ListarAlunoActivity.class);
         startActivity(intent);
     }
+    
 
     // Método para abrir camera e capturar foto do aluno
     public void tirarFoto(View view) {

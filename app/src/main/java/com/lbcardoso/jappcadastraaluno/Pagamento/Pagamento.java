@@ -45,10 +45,6 @@ public class Pagamento implements Serializable {
 
     @Override
     public String toString() {
-        return "Pagamento{" +
-                "valor=" + valor +
-                ", data='" + data + '\'' +
-                ", alunoId=" + alunoId +
-                '}';
+        return alunoId+" : "+valor+", "+data;
     }
 }
